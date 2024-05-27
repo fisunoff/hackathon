@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from rest_framework.authtoken.admin import User
 
+from extended_user.models import Profile
+
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -14,3 +16,11 @@ class UserSerializer(serializers.ModelSerializer):
         user.set_password(password)
         user.save()
         return user
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    is_manager = serializers.BooleanField(read_only=True)
+
+    class Meta:
+        model = Profile
+        fields = ('id', 'name', 'surname', 'patronymic', 'bio', 'post', 'is_manager')
