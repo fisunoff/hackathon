@@ -4,7 +4,6 @@ import store from "@/store"
 import loginPage from "@/pages/loginPage.vue"
 import mainPage from "@/pages/mainPage.vue"
 
-
 Vue.use(VueRouter)
 
 const routes = [
