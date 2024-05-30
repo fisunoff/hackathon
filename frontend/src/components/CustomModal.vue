@@ -6,50 +6,45 @@
     >
       <v-card>
         <v-card-title>
-          <span class="text-h5">Добавить запись</span>
+          <span class="text-h5">{{ modalTitle }}</span>
         </v-card-title>
         <v-card-text>
           <v-container>
             <template>
-              <component :is="form" />
+              <component :is="form" v-bind="{ apiPath: apiPath}" />
             </template>
           </v-container>
         </v-card-text>
-        <v-card-actions>
-          <v-spacer></v-spacer>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
-            Закрыть
-          </v-btn>
-          <v-btn
-            color="blue darken-1"
-            text
-            @click="dialog = false"
-          >
-            Сохранить
-          </v-btn>
-        </v-card-actions>
       </v-card>
     </v-dialog>
 </template>
 <script>
 export default {
   name: "CustomModal",
+  provide() {
+    return {
+      $modal: this,
+    }
+  },
   props: {
     form: {
       type: Object,
       required: false,
-      default: null
-    }
+    },
+    apiPath: {
+      type: String,
+      required: true,
+    },
+    modalTitle: {
+      type: String,
+      required: false,
+    },
   },
   data() {
     return {
       dialog: false,
     }
-  }
+  },
 }
 </script>
 <style scoped>
