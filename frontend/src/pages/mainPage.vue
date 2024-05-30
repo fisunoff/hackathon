@@ -1,8 +1,11 @@
 <template>
   <custom-table
+      :key="test_data.length"
       v-if="test_data.length > 0"
       :items="test_data"
       :headers="test_headers"
+      :api-path="'test_case/api/'"
+      :table-title="'Тестовая таблица'"
   />
 </template>
 

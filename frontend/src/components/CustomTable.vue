@@ -1,16 +1,23 @@
 <template>
-  <div>
-    <span>Заголовок</span>
-    <v-btn color="primary" @click="addItem">Добавить</v-btn>
-    <v-data-table dense
+  <div class="pa-4">
+    <div class="d-flex">
+      <span>{{ tableTitle }}</span>
+      <v-btn color="primary" class="ml-auto" @click="addItem">Добавить</v-btn>
+    </div>
+    <v-data-table
+      dense
       :headers="headers"
       :items="items"
+      :footer-props="{
+        'items-per-page-options': [10, 25, 50, 100, -1]
+      }"
+      :items-per-page="50"
       class="elevation-1"
     >
       <template v-slot:item="{ item }">
         <tr>
           <td v-for="(col,index) in headers" :key="index">{{ item[col.value] }}</td>
-          <td>
+          <td class="action-cell">
             <v-icon
               small
               class="mr-2"
@@ -18,8 +25,6 @@
             >
               mdi-pencil
             </v-icon>
-          </td>
-          <td>
             <v-icon
               small
               @click="deleteItem(item)"
@@ -30,16 +35,27 @@
         </tr>
     </template>
     </v-data-table>
-    <custom-modal ref="modal"/>
+    <custom-modal
+        ref="modal"
+        :form="useForm"
+        :api-path="apiPath"
+        :modal-title="modalTitle"
+    />
   </div>
 </template>
 
 <script>
 
 import CustomModal from "@/components/CustomModal.vue";
+import CreateForm from "@/forms/CreateForm.vue";
 
 export default {
   name: "CustomTable",
+  provide() {
+    return {
+      $table: this
+    }
+  },
   components: {CustomModal},
   props: {
     headers: {
@@ -49,11 +65,21 @@ export default {
     items: {
       type: Array,
       required: true,
+    },
+    apiPath: {
+      type: String,
+      required: true,
+    },
+    tableTitle: {
+      type: String,
+      required: false,
     }
   },
   data() {
     return {
       openModal: false,
+      useForm: null,
+      modalTitle: null,
     }
   },
   mounted() {
@@ -61,11 +87,9 @@ export default {
   },
   methods: {
     addItem() {
+      this.useForm = CreateForm
+      this.modalTitle = 'Добавить запись'
       this.$refs.modal.dialog = true
-      // this.$ajax.post(`test_case/api/`, {...this.item})
-      //     .then(() => {
-      //       console.log(111)
-      //     })
     },
     editItem(item) {
       console.log('Editing:', item);
@@ -73,10 +97,12 @@ export default {
     deleteItem(item) {
       console.log('Deleting:', item);
     },
-    }
+  }
 }
 </script>
 
 <style scoped>
-
+  .action-cell {
+    width: 100px;
+  }
 </style>
