@@ -64,6 +64,7 @@
 <script>
 
 import CustomModal from "@/components/CustomModal.vue";
+import DeleteConfirmation from "@/components/DeleteConfirmation.vue";
 
 export default {
   name: "CustomTable",
@@ -114,10 +115,8 @@ export default {
       modalTitle: null,
       search: '',
       formValue: null,
+      DeleteConfirmation: DeleteConfirmation
     }
-  },
-  mounted() {
-    //console.log(this.items)
   },
   methods: {
     addItem() {
@@ -126,14 +125,16 @@ export default {
       this.$refs.modal.dialog = true
     },
     editItem(item) {
-      console.log('Editing:', item);
       this.useForm = this.EditForm
       this.modalTitle = 'Добавить запись'
       this.formValue = item
       this.$refs.modal.dialog = true
     },
     deleteItem(item) {
-      console.log('Deleting:', item);
+      this.useForm = this.DeleteConfirmation
+      this.modalTitle = 'Удалить запись'
+      this.formValue = item
+      this.$refs.modal.dialog = true
     },
   }
 }

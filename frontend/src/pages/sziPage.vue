@@ -1,15 +1,23 @@
 <template>
   <div class="d-flex">
     <nav-panel />
+    <v-data-table
+      v-if="data.length === 0"
+      class="elevation-1"
+      loading
+      loading-text="Загрузка..."
+      style="width: 100%"
+    ></v-data-table>
     <custom-table
+        v-else
         :key="data.length"
-        v-if="data.length > 0"
         :items="data"
         :headers="headers"
         :api-path="apiPath"
         :table-title="'СЗИ'"
         style="width: 100%"
-    />
+    >
+    </custom-table>
   </div>
 </template>
 

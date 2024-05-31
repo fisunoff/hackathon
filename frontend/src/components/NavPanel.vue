@@ -1,5 +1,5 @@
 <template>
-  <div style="height: inherit">
+  <div style="height: inherit; min-height: 100vh; position: sticky">
     <v-card style="height: 100%">
       <v-navigation-drawer
         permanent
