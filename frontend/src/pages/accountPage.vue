@@ -32,10 +32,22 @@ export default {
       postData: false,
     }
   },
-  async mounted() {
-    const {data} = await this.$ajax.get(this.apiPath)
-    this.data = data
-    console.log(this.data)
+  mounted() {
+    const fetchData = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const headers = {
+          Authorization: `${token}`
+        };
+        const { data } = await this.$ajax.get(this.apiPath, { headers });
+        this.data = data;
+        console.log(this.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
   },
   methods: {
 

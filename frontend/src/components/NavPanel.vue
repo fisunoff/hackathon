@@ -49,7 +49,7 @@
             </v-list-item>
           </router-link>
 
-          <router-link to="/current-data" class="nav-el">
+          <router-link to="/szi" class="nav-el">
             <v-list-item link>
                 <v-list-item-icon>
                   <v-icon>mdi-shield-key-outline</v-icon>
@@ -58,7 +58,7 @@
             </v-list-item>
           </router-link>
 
-          <router-link to="" class="nav-el">
+          <router-link to="/functions" class="nav-el">
             <v-list-item link>
               <v-list-item-icon>
                 <v-icon>mdi-cog</v-icon>
