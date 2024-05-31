@@ -14,6 +14,7 @@ class Profile(TimestampedModel):
     bio = models.TextField("Описание профиля", max_length=500, blank=True, null=True)
     post = models.CharField(verbose_name="Должность", max_length=200, blank=True, null=True)
     manager = models.BooleanField(verbose_name='Менеджер', default=False)
+    notify_me = models.BooleanField(verbose_name='Получать уведомления', default=True)
 
     def __str__(self):
         return f"{self.surname} {self.name}{' ' + self.patronymic if self.patronymic else ''}"

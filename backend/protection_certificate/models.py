@@ -2,7 +2,7 @@ from django.db import models
 
 from utils.models import AuthoringModel
 
-from protection_certificate import const
+from . import const
 
 
 # Create your models here.
