@@ -9,22 +9,30 @@ PASSWORD = 'qWWKS9hGFFjqxtvuPVhT'
 def send_message(email_list):
     s = smtplib.SMTP_SSL(host='smtp.mail.ru', port=465)
     s.login(MY_ADDRESS, PASSWORD)
-    for x in email_list:
+    for email in email_list:
         msg = MIMEMultipart()
         msg['From'] = MY_ADDRESS
-        msg['To'] = x
+        msg['To'] = email
         msg['Subject'] = 'Изменения в реестре СЗИ'
         html = """\
         <html>
           <head></head>
           <body>
-            <p>В реестре появились изменения<br>
-               <a href="http://www.python.org">Здесь</a> вы можете посмотреть изменения.
+            <p>В реестре появились новые изменения в сертификатах<br>
+                Вы можете посмотреть изменения по <a href="http://www.python.org">ссылке</a>
             </p>
-            <table>
+            <table style:border 1px>
                 <tr>
-                    <td>Добавление</td>
-                    <td>Изменение</td>
+                    <td>Добавлено</td>
+                    <td>1</td>
+                </tr>
+                <tr>
+                    <td>Изменено</td>
+                    <td>2</td>
+                </tr>
+                <tr>
+                    <td>Удалено</td>
+                    <td>3</td>
                 </tr>
             </table>
           </body>
@@ -33,4 +41,4 @@ def send_message(email_list):
         msg.attach(MIMEText(html, 'html'))
         s.send_message(msg)
 
-send_message(['nneewday@mail.ru', 'knowslana@gmail.com'])
+send_message(['nneewday@mail.ru'])
