@@ -1,11 +1,25 @@
 <template>
   <div class="pa-4">
-    <div class="d-flex">
+    <div class="d-flex justify-content-center align-center">
       <span>{{ tableTitle }}</span>
-      <v-btn color="primary" class="ml-auto" @click="addItem">Добавить</v-btn>
+      <v-card-title style="width: 30%">
+      <v-text-field
+        v-model="search"
+        outlined
+        dense
+        append-icon="mdi-magnify"
+        label="Поиск"
+        hide-details
+      ></v-text-field>
+      </v-card-title>
+      <template>
+        <slot/>
+      </template>
+      <v-btn v-if="addAction" color="primary" class="ml-auto" @click="addItem">Добавить</v-btn>
     </div>
     <v-data-table
       dense
+      :search="search"
       :headers="headers"
       :items="items"
       :footer-props="{
@@ -19,6 +33,7 @@
           <td v-for="(col,index) in headers" :key="index">{{ item[col.value] }}</td>
           <td class="action-cell">
             <v-icon
+              v-if="canEdit"
               small
               class="mr-2"
               @click="editItem(item)"
@@ -26,6 +41,7 @@
               mdi-pencil
             </v-icon>
             <v-icon
+              v-if="canEdit"
               small
               @click="deleteItem(item)"
             >
@@ -73,13 +89,22 @@ export default {
     tableTitle: {
       type: String,
       required: false,
-    }
+    },
+    addAction: {
+      type: Boolean,
+      default: false,
+    },
+    canEdit: {
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {
       openModal: false,
       useForm: null,
       modalTitle: null,
+      search: '',
     }
   },
   mounted() {
