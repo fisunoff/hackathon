@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'protection_tool',
     'protection_certificate',
     'protection_function',
+    'updater',
 ]
 
 # CORS
