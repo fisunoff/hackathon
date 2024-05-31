@@ -9,3 +9,13 @@ class ProtectionTool(TimestampedModel):
 
     class Meta:
         verbose_name = 'Средство защиты информации'
+
+    def __str__(self):
+        return self.title
+
+    @classmethod
+    def get_caches(cls):
+        return {
+            title: pk
+            for (title, pk) in cls.objects.values_list('title', 'pk')
+        }
