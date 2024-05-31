@@ -10,7 +10,8 @@ from . import const
 class ProtectionToolCertificate(AuthoringModel):
     number = models.CharField(max_length=1024, unique=True, verbose_name='№ сертификата')
     date_added = models.DateField(verbose_name='Дата внесения в реестр')
-    validity_period = models.DateField(verbose_name='Срок действия сертификата')
+    validity_period = models.DateField(verbose_name='Срок действия сертификата', null=True)
+    validity_period_infinity = models.BooleanField(verbose_name='Срок действия - бессрочно', default=False)
     tool = models.ForeignKey(
         to='protection_tool.ProtectionTool',
         null=False,
@@ -26,8 +27,14 @@ class ProtectionToolCertificate(AuthoringModel):
     requisites = models.CharField(verbose_name='Реквизиты заявителя (индекс, адрес, телефон)', max_length=1024)
     support_period = models.DateField(
         verbose_name='Информация об окончании срока технической поддержки, полученная от заявителя',
-        null=True
+        null=True,
     )
+    support_period_infinity = models.BooleanField(
+        verbose_name='Информация об окончании срока технической поддержки, полученная от заявителя - бессрочно',
+        default=False,
+    )
+    # TODO: дата приостановки
+    pause = models.BooleanField(verbose_name='Действие сертификата соответствия приостановлено', default=False)
     functions = models.ManyToManyField(
         to='protection_function.ProtectionToolFunction',
         verbose_name='Функции',
@@ -44,6 +51,7 @@ class ProtectionToolCertificate(AuthoringModel):
                 row.number,
                 row.date_added,
                 row.validity_period,
+                row.validity_period_infinity,
                 row.tool.title,
                 row.documents,
                 row.certification_schema,
@@ -52,6 +60,8 @@ class ProtectionToolCertificate(AuthoringModel):
                 row.applicant,
                 row.requisites,
                 row.support_period,
+                row.support_period_infinity,
+                row.pause,
                 row.id
             )
             for row in cls.objects.all()
@@ -63,7 +73,7 @@ class ProtectionToolCertificate(AuthoringModel):
 
 class ProtectionToolCertificateDiff(AuthoringModel):
     reason = models.IntegerField(verbose_name='Тип изменения', choices=const.reasons)
-    number = models.CharField(max_length=1024, unique=True, verbose_name='№ сертификата')
+    number = models.CharField(max_length=1024, verbose_name='№ сертификата')
     date_added_old = models.DateField(verbose_name='Дата внесения в реестр (старое)', null=True)
     date_added_new = models.DateField(verbose_name='Дата внесения в реестр (новое)', null=True)
 
@@ -91,6 +101,8 @@ class ProtectionToolCertificateDiff(AuthoringModel):
         verbose_name='Информация об окончании срока технической поддержки, полученная от заявителя (новое)',
         null=True
     )
+    pause_old = models.BooleanField(verbose_name='Действие сертификата соответствия приостановлено (старое)', default=False)
+    pause_new = models.BooleanField(verbose_name='Действие сертификата соответствия приостановлено (новое)', default=False)
     version = models.ForeignKey(to='updater.Version', on_delete=models.PROTECT, verbose_name='версия')
 
     class Meta:
@@ -125,5 +137,7 @@ class ProtectionToolCertificateDiff(AuthoringModel):
                 requisites_new=now.requisites,
                 support_period_old=old_row.support_period,
                 support_period_new=now.support_period,
+                pause_old=old_row.pause,
+                pause_new=now.pause,
                 version_id=version_id,
             )
