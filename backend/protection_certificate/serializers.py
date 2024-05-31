@@ -1,10 +1,10 @@
 from rest_framework import serializers
 from .models import *
 from protection_tool.serializers import ProtectionToolSerializer
-from protection_function.serializers import ProtectionToolFunctionSerializer
 
 
 class ProtectionToolCertificateSerializer(serializers.ModelSerializer):
+    tool = ProtectionToolSerializer(many=True)
     class Meta:
         model = ProtectionToolCertificate
         fields = ['number', 'date_added', 'validity_period', 'tool', 'documents',

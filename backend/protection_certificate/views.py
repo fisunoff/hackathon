@@ -8,6 +8,7 @@ from .models import *
 class ProtectionToolCertificateViewSet(viewsets.ModelViewSet):
     queryset = ProtectionToolCertificate.objects.all()
     serializer_class = ProtectionToolCertificateSerializer
+    http_method_names = ['get', 'put', 'patch', 'delete', 'head', 'options', 'trace']
 
 
 class ProtectionToolCertificateDiffViewSet(viewsets.ModelViewSet):

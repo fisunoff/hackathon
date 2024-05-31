@@ -8,3 +8,4 @@ from .models import *
 class ProtectionToolViewSet(viewsets.ModelViewSet):
     queryset = ProtectionTool.objects.all()
     serializer_class = ProtectionToolSerializer
+    http_method_names = ['get', 'put', 'patch', 'delete', 'head', 'options', 'trace']

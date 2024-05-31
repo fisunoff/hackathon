@@ -15,7 +15,8 @@ class ProtectionToolCertificate(AuthoringModel):
         to='protection_tool.ProtectionTool',
         null=False,
         on_delete=models.CASCADE,
-        verbose_name='Наименование средств'
+        verbose_name='Наименование средств',
+        related_name='certificates'
     )
     documents = models.TextField(verbose_name='Наименования документов, требованиям которых соответствует средство')
     certification_schema = models.CharField(verbose_name='Схема сертификации', max_length=1024)
@@ -27,7 +28,11 @@ class ProtectionToolCertificate(AuthoringModel):
         verbose_name='Информация об окончании срока технической поддержки, полученная от заявителя',
         null=True
     )
-    functions = models.ManyToManyField(to='protection_function.ProtectionToolFunction', verbose_name='Функции')
+    functions = models.ManyToManyField(
+        to='protection_function.ProtectionToolFunction',
+        verbose_name='Функции',
+        blank=True
+    )
 
     class Meta:
         verbose_name = 'Сертификат СЗИ'
