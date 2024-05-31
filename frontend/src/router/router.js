@@ -7,6 +7,8 @@ import currentDataPage from "@/pages/currentDataPage.vue";
 import changeDataPage from "@/pages/changeDataPage.vue";
 import accountPage from "@/pages/accountPage.vue";
 import registerPage from "@/pages/registerPage.vue";
+import functionsPage from "@/pages/functionsPage.vue";
+import sziPage from "@/pages/sziPage.vue";
 
 Vue.use(VueRouter)
 
@@ -39,6 +41,16 @@ const routes = [
     {
         path: '/user',
         component: accountPage,
+        meta: {requiresAuth: true}
+    },
+    {
+        path: '/functions',
+        component: functionsPage,
+        meta: {requiresAuth: true}
+    },
+    {
+        path: '/szi',
+        component: sziPage,
         meta: {requiresAuth: true}
     },
 ]
