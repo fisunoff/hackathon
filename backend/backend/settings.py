@@ -47,6 +47,9 @@ INSTALLED_APPS = [
     'api',
     'extended_user',
     'test_case',
+    'protection_tool',
+    'protection_certificate',
+    'protection_function',
 ]
 
 # CORS
