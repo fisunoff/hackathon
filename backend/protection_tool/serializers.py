@@ -19,3 +19,9 @@ class ProtectionToolSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProtectionTool
         fields = ['title', 'certificates']
+
+
+class BasicProtectionToolSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProtectionTool
+        fields = ['title']
