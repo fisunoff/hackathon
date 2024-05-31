@@ -15,4 +15,7 @@ class ProtectionToolCertificateData:
     applicant: str = None
     requisites: str = None
     support_period: datetime.date = None
+    validity_period_infinity: bool = False
+    support_period_infinity: bool = False
+    pause: bool = False
     id: int = None

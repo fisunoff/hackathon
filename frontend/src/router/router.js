@@ -3,6 +3,12 @@ import VueRouter from "vue-router"
 import store from "@/store"
 import loginPage from "@/pages/loginPage.vue"
 import mainPage from "@/pages/mainPage.vue"
+import currentDataPage from "@/pages/currentDataPage.vue";
+import changeDataPage from "@/pages/changeDataPage.vue";
+import accountPage from "@/pages/accountPage.vue";
+import registerPage from "@/pages/registerPage.vue";
+import functionsPage from "@/pages/functionsPage.vue";
+import sziPage from "@/pages/sziPage.vue";
 
 Vue.use(VueRouter)
 
@@ -17,6 +23,36 @@ const routes = [
         component: loginPage,
         meta: {requiresAuth: false}
     },
+    {
+        path: '/register',
+        component: registerPage,
+        meta: {requiresAuth: false}
+    },
+    {
+        path: '/current-data',
+        component: currentDataPage,
+        meta: {requiresAuth: true}
+    },
+    {
+        path: '/change-data',
+        component: changeDataPage,
+        meta: {requiresAuth: true}
+    },
+    {
+        path: '/user',
+        component: accountPage,
+        meta: {requiresAuth: true}
+    },
+    {
+        path: '/functions',
+        component: functionsPage,
+        meta: {requiresAuth: true}
+    },
+    {
+        path: '/szi',
+        component: sziPage,
+        meta: {requiresAuth: true}
+    },
 ]
 
 const router = new VueRouter({
@@ -30,6 +66,7 @@ router.beforeEach((to, from, next) => {
     if (to.meta.requiresAuth && !token) {
         next("/login")
     } else {
+        console.log(token)
         next()
     }
 })

@@ -31,24 +31,25 @@ def save_dataframe_to_excel(data, filename):
         data.to_excel(writer, index=False)
 
 
-url = 'https://reestr.fstec.ru/reg3?option=com_rajax&module=rfiles&method=download&format=file&mod=209&file=0'
-headers = {
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
-                  'Chrome/91.0.4472.124 Safari/537.36'
-}
+def update_data():
+    url = 'https://reestr.fstec.ru/reg3?option=com_rajax&module=rfiles&method=download&format=file&mod=209&file=0'
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) '
+                      'Chrome/91.0.4472.124 Safari/537.36'
+    }
 
-xlsx_file = 'output_file.xlsx'
-ods_file = 'downloaded_file.ods'
+    xlsx_file = 'output_file.xlsx'
+    ods_file = 'downloaded_file.ods'
 
-status_code = download_file(url, headers, ods_file)
-if status_code == 200:
-    data = read_ods_to_dataframe(ods_file)
-    process_data(data)
-    # save_dataframe_to_excel(data, xlsx_file)
+    status_code = download_file(url, headers, ods_file)
+    if status_code == 200:
+        data = read_ods_to_dataframe(ods_file)
+        process_data(data)
+        # save_dataframe_to_excel(data, xlsx_file)
 
-    # data_list = data.values.tolist()
-    # print(data_list)
+        # data_list = data.values.tolist()
+        # print(data_list)
 
-    print(data.iloc[0])
-else:
-    print("Failed to download the file.")
+        print(data.iloc[0])
+    else:
+        print("Failed to download the file.")

@@ -5,4 +5,4 @@ from .models import *
 class ProtectionToolFunctionSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProtectionToolFunction
-        fields = ['title', 'symbol']
+        fields = ['id', 'title', 'symbol']

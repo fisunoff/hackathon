@@ -28,6 +28,7 @@ urlpatterns = [
     path('protection_certificate/', include('protection_certificate.urls')),
     path('protection_tool/', include('protection_tool.urls')),
     path('protection_function/', include('protection_function.urls')),
+    path('updater/', include('updater.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='schema'), name='docs'),
 ]
