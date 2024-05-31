@@ -6,6 +6,7 @@ import numpy as np
 from protection_certificate.data import ProtectionToolCertificateData
 from protection_certificate.models import ProtectionToolCertificateDiff, ProtectionToolCertificate
 from protection_tool.models import ProtectionTool
+from updater.const import IN_PROGRESS, DONE
 from updater.models import Version
 
 
@@ -14,13 +15,16 @@ def get_caches():
     return ProtectionToolCertificate.get_caches()
 
 
-def process_data(data):
+def process_data(data, version_id):
     cache = get_caches()
     protection_tool_cache = ProtectionTool.get_caches()
     import django
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'backend.backend.settings')
     django.setup()
-    version = Version.objects.create()
+    version = Version.objects.get(id=version_id)
+    version.status = IN_PROGRESS
+    version.save()
+    print('processing')
     for row in data.values:
         title = str(row[0])
         now = ProtectionToolCertificateData(
@@ -59,7 +63,7 @@ def process_data(data):
             old_row = cache[title]  # type: ProtectionToolCertificateData
             if old_row == now:
                 continue  # не поменялось
-            ProtectionToolCertificateDiff.create_from_data(old_row, now, version.id)
+            ProtectionToolCertificateDiff.create_from_data(old_row, now, version_id)
 
             ProtectionToolCertificate.objects.update_or_create(
                 id=cache[now.number].id,
@@ -77,7 +81,7 @@ def process_data(data):
                 )
             )
         else:
-            ProtectionToolCertificateDiff.create_from_data(ProtectionToolCertificateData(), now, version.id)
+            ProtectionToolCertificateDiff.create_from_data(ProtectionToolCertificateData(), now, version_id)
             ProtectionToolCertificate.objects.create(
                 number=now.number,
                 date_added=now.date_added,
@@ -91,3 +95,5 @@ def process_data(data):
                 requisites=now.requisites,
                 support_period=now.support_period,
             )
+    version.status = DONE
+    version.save()
