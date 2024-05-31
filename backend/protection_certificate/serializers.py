@@ -1,9 +1,11 @@
 from rest_framework import serializers
 from .models import *
 from protection_tool.serializers import BasicProtectionToolSerializer
+from protection_function.serializers import ProtectionToolFunctionSerializer
 
 
 class ProtectionToolCertificateSerializer(serializers.ModelSerializer):
+    functions = ProtectionToolFunctionSerializer(many=True)
     tool = BasicProtectionToolSerializer()
 
     class Meta:
