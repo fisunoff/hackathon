@@ -8,6 +8,10 @@
         :headers="headers"
         :api-path="apiPath"
         :table-title="'Функции'"
+        :add-action="true"
+        :can-edit="true"
+        :create-form="CreateFunctionForm"
+        :edit-form="EditFunctionForm"
         style="width: 100%"
     />
   </div>
@@ -17,8 +21,18 @@
 
 import CustomTable from "@/components/CustomTable.vue";
 import NavPanel from "@/components/NavPanel.vue";
+import CreateFunctionForm from "@/forms/CreateFunctionForm.vue";
+import EditFunctionForm from "@/forms/EditFunctionForm.vue";
 export default {
   name: "functionsPage",
+  computed: {
+    CreateFunctionForm() {
+      return CreateFunctionForm
+    },
+    EditFunctionForm() {
+      return EditFunctionForm
+    }
+  },
   components: {CustomTable, NavPanel},
   data() {
     return {
@@ -31,7 +45,6 @@ export default {
     const {data} = await this.$ajax.get(this.apiPath)
     this.data = data
     this.headers = [
-      { text: '№', value: 'id' },
       { text: 'Наименование', value: 'title' },
       { text: 'Условное обозначение', value: 'symbol' },
     ]

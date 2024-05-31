@@ -1,18 +1,13 @@
 <template>
   <div>
     <v-text-field
-      v-model="value.name"
-      label="Name"
+      v-model="value.title"
+      label="Наименование"
       hide-details="auto"
     ></v-text-field>
     <v-text-field
-      v-model="value.param1"
-      label="Param1"
-      hide-details="auto"
-    ></v-text-field>
-    <v-text-field
-      v-model="value.param2"
-      label="Param2"
+      v-model="value.symbol"
+      label="Условное обозначение"
       hide-details="auto"
     ></v-text-field>
     <v-btn
@@ -34,7 +29,7 @@
 
 <script>
 export default {
-  name: "CreateForm",
+  name: "CreateFunctionForm",
   inject: ['$modal', '$table'],
   props: {
     apiPath: {
@@ -45,9 +40,8 @@ export default {
   data() {
     return {
       value: {
-        name: null,
-        param1: null,
-        param2: null,
+        title: null,
+        symbol: null,
       },
     }
   },

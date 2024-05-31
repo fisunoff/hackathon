@@ -56,6 +56,7 @@
         :form="useForm"
         :api-path="apiPath"
         :modal-title="modalTitle"
+        :value="formValue"
     />
   </div>
 </template>
@@ -63,7 +64,6 @@
 <script>
 
 import CustomModal from "@/components/CustomModal.vue";
-import CreateForm from "@/forms/CreateForm.vue";
 
 export default {
   name: "CustomTable",
@@ -98,6 +98,14 @@ export default {
       type: Boolean,
       default: false,
     },
+    CreateForm: {
+      type: Object,
+      default: null,
+    },
+    EditForm: {
+      type: Object,
+      default: null,
+    }
   },
   data() {
     return {
@@ -105,19 +113,24 @@ export default {
       useForm: null,
       modalTitle: null,
       search: '',
+      formValue: null,
     }
   },
   mounted() {
-    console.log(this.items)
+    //console.log(this.items)
   },
   methods: {
     addItem() {
-      this.useForm = CreateForm
+      this.useForm = this.CreateForm
       this.modalTitle = 'Добавить запись'
       this.$refs.modal.dialog = true
     },
     editItem(item) {
       console.log('Editing:', item);
+      this.useForm = this.EditForm
+      this.modalTitle = 'Добавить запись'
+      this.formValue = item
+      this.$refs.modal.dialog = true
     },
     deleteItem(item) {
       console.log('Deleting:', item);
