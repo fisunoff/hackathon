@@ -34,5 +34,4 @@ def save_dataframe_to_excel(data, filename):
 
 def update_data():
     version = Version.objects.create()
-    print('sync')
     update_data_job.delay(version.id)

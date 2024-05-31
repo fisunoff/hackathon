@@ -1,9 +1,18 @@
 from celery import shared_task
 
+from backend.celery import app
 from updater.const import ERROR
 from updater.models import Version
 from updater.processing import process_data
 import logging
+
+
+@app.task
+def update_data_cron():
+    version = Version.objects.create()
+    logging.log(logging.INFO, 'Работает задача cron')
+    update_data_job(version_id=version.id)
+    logging.log(logging.INFO, 'Cron отработал')
 
 
 @shared_task
