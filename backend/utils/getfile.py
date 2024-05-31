@@ -2,6 +2,8 @@ import requests
 import warnings
 import pandas as pd
 
+from updater.processing import process_data
+
 
 def download_file(url, headers, filename):
     """Метод для скачивания файла по урлу."""
@@ -41,7 +43,8 @@ ods_file = 'downloaded_file.ods'
 status_code = download_file(url, headers, ods_file)
 if status_code == 200:
     data = read_ods_to_dataframe(ods_file)
-    save_dataframe_to_excel(data, xlsx_file)
+    process_data(data)
+    # save_dataframe_to_excel(data, xlsx_file)
 
     # data_list = data.values.tolist()
     # print(data_list)
