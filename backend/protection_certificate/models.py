@@ -51,7 +51,6 @@ class ProtectionToolCertificate(AuthoringModel):
                 row.number,
                 row.date_added,
                 row.validity_period,
-                row.validity_period_infinity,
                 row.tool.title,
                 row.documents,
                 row.certification_schema,
@@ -60,6 +59,7 @@ class ProtectionToolCertificate(AuthoringModel):
                 row.applicant,
                 row.requisites,
                 row.support_period,
+                row.validity_period_infinity,
                 row.support_period_infinity,
                 row.pause,
                 row.id
@@ -101,6 +101,16 @@ class ProtectionToolCertificateDiff(AuthoringModel):
         verbose_name='Информация об окончании срока технической поддержки, полученная от заявителя (новое)',
         null=True
     )
+    validity_period_infinity_old = models.BooleanField(verbose_name='Срок действия - бессрочно (старое)', default=False)
+    validity_period_infinity_new = models.BooleanField(verbose_name='Срок действия - бессрочно (новое)', default=False)
+    support_period_infinity_old = models.BooleanField(
+        verbose_name='Информация об окончании срока технической поддержки, полученная от заявителя - бессрочно (старое)',
+        default=False,
+    )
+    support_period_infinity_new = models.BooleanField(
+        verbose_name='Информация об окончании срока технической поддержки, полученная от заявителя - бессрочно (новое)',
+        default=False,
+    )
     pause_old = models.BooleanField(verbose_name='Действие сертификата соответствия приостановлено (старое)', default=False)
     pause_new = models.BooleanField(verbose_name='Действие сертификата соответствия приостановлено (новое)', default=False)
     version = models.ForeignKey(to='updater.Version', on_delete=models.PROTECT, verbose_name='версия')
@@ -137,6 +147,10 @@ class ProtectionToolCertificateDiff(AuthoringModel):
                 requisites_new=now.requisites,
                 support_period_old=old_row.support_period,
                 support_period_new=now.support_period,
+                validity_period_infinity_old=old_row.validity_period_infinity,
+                validity_period_infinity_new=now.validity_period_infinity,
+                support_period_infinity_old=old_row.support_period_infinity,
+                support_period_infinity_new=now.support_period_infinity,
                 pause_old=old_row.pause,
                 pause_new=now.pause,
                 version_id=version_id,

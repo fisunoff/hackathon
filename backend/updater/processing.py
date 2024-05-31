@@ -22,7 +22,6 @@ def process_data(data):
     django.setup()
     version = Version.objects.create()
     for row in data.values:
-        print(row)
         title = str(row[0])
         now = ProtectionToolCertificateData(
             *(str(i) for i in row),
