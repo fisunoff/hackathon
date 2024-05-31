@@ -3,6 +3,5 @@ from rest_framework import routers
 from .views import *
 
 router = routers.DefaultRouter()
-router.register(r'api', ProtectionToolCertificateViewSet)
-router.register(r'diff', ProtectionToolCertificateDiffViewSet)
+router.register(r'api', ProtectionToolFunctionViewSet)
 urlpatterns = router.urls

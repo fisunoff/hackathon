@@ -11,7 +11,12 @@ class ProtectionToolCertificate(AuthoringModel):
     number = models.CharField(max_length=1024, unique=True, verbose_name='№ сертификата')
     date_added = models.DateField(verbose_name='Дата внесения в реестр')
     validity_period = models.DateField(verbose_name='Срок действия сертификата')
-    tool = models.ForeignKey(to='protection_tool.ProtectionTool', null=False, on_delete=models.CASCADE)
+    tool = models.ForeignKey(
+        to='protection_tool.ProtectionTool',
+        null=False,
+        on_delete=models.CASCADE,
+        verbose_name='Наименование средств'
+    )
     documents = models.TextField(verbose_name='Наименования документов, требованиям которых соответствует средство')
     certification_schema = models.CharField(verbose_name='Схема сертификации', max_length=1024)
     laboratory = models.CharField(verbose_name='Испытательная лаборатория', max_length=1024)
@@ -46,6 +51,9 @@ class ProtectionToolCertificate(AuthoringModel):
             )
             for row in cls.objects.all()
         }
+
+    def __str__(self):
+        return self.number
 
 
 class ProtectionToolCertificateDiff(AuthoringModel):

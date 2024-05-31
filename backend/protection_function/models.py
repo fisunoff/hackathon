@@ -9,3 +9,6 @@ class ProtectionToolFunction(AuthoringModel):
 
     class Meta:
         verbose_name = 'Функция СЗИ'
+
+    def __str__(self):
+        return self.title
