@@ -34,8 +34,8 @@ class ProtectionToolCertificateDiff(AuthoringModel):
 
     validity_period_old = models.DateField(verbose_name='Срок действия сертификата (старое)')
     validity_period_new = models.DateField(verbose_name='Срок действия сертификата (новое)')
-    tool_old = models.CharField('СЗИ (старое)')
-    tool_new = models.CharField('СЗИ (новое)')
+    tool_old = models.CharField('СЗИ (старое)', max_length=1024)
+    tool_new = models.CharField('СЗИ (новое)', max_length=1024)
     documents_old = models.TextField(verbose_name='Наименования документов, требованиям которых соответствует средство (старое)')
     documents_new = models.TextField(verbose_name='Наименования документов, требованиям которых соответствует средство (новое)')
     certification_schema_old = models.CharField(verbose_name='Схема сертификации (старое)', max_length=1024)
