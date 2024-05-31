@@ -22,7 +22,7 @@ export default {
   components: {CustomTable, NavPanel},
   data() {
     return {
-      apiPath: 'test_case/api/',
+      apiPath: 'protection_certificate/api/',
       data: [],
       headers: [],
     }
@@ -30,22 +30,40 @@ export default {
   async mounted() {
     const {data} = await this.$ajax.get(this.apiPath)
     this.data = data
+    this.splitData(this.data)
     this.headers = [
-      { text: '№ сертификата', value: '' },
-      { text: 'Дата внесения в реестр', value: 'param1' },
-      { text: 'Срок действия сертификата', value: 'param2' },
-      { text: 'Наименование средства (шифр)', value: 'param3' },
-      { text: 'Наименования документов, требованиям которых соответствует средство', value: 'param3' },
-      { text: 'Схема сертификации', value: 'param3' },
-      { text: 'Испытательная лаборатория', value: 'param3' },
-      { text: 'Орган по сертификации', value: 'param3' },
-      { text: 'Заявитель', value: 'param3' },
-      { text: 'Реквизиты заявителя (индекс, адрес, телефон)', value: 'param3' },
-      { text: 'Информация об окончании срока технической поддержки, полученная от заявителя', value: 'param3' },
+      { text: '№ сертификата', value: 'number' },
+      { text: 'Дата внесения в реестр', value: 'date_added' },
+      { text: 'Срок действия сертификата', value: 'validity_period' },
+      { text: 'Наименование средства (шифр)', value: 'tool' },
+      { text: 'Наименования документов, требованиям которых соответствует средство', value: 'documents' },
+      { text: 'Схема сертификации', value: 'certification_schema' },
+      { text: 'Испытательная лаборатория', value: 'laboratory' },
+      { text: 'Орган по сертификации', value: 'agency' },
+      { text: 'Заявитель', value: 'applicant' },
+      { text: 'Реквизиты заявителя (индекс, адрес, телефон)', value: 'requisites' },
+      { text: 'Информация об окончании срока технической поддержки, полученная от заявителя', value: 'support_period' },
+      { text: 'Функции', value: 'functions' },
+
     ]
   },
   methods: {
-
+    replaceSpace(el) {
+      if (el === "")
+        return "—"
+      else return el
+    },
+    splitData(data) {
+      data.forEach(el => {
+        el.functions = el.functions.map(el2 => el2.symbol).join(', ');
+      });
+      data.forEach(el => {
+        el.functions = this.replaceSpace(el.functions)
+      })
+      data.forEach(el => {
+        el.tool = el.tool.title
+      });
+    }
   }
 }
 </script>
