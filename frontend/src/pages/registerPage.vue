@@ -1,11 +1,22 @@
 <template>
   <v-sheet class="bg-deep-purple pa-12" rounded>
     <v-card class="mx-auto px-6 py-8" max-width="344">
-      <p class="justify-center d-flex text-h5">Вход</p>
+      <p class="justify-center d-flex text-h5">Регистрация</p>
       <v-form
         v-model="form"
         @submit.prevent="onSubmit"
       >
+        <router-link to="/login">
+            <v-btn
+            :loading="loading"
+            color="warning"
+            size="large"
+            variant="elevated"
+            block
+          >
+            Назад
+          </v-btn>
+        </router-link>
         <v-text-field
           v-model="username"
           :readonly="loading"
@@ -35,19 +46,8 @@
           variant="elevated"
           block
         >
-          Войти
+          Зарегистрироваться
         </v-btn>
-        <router-link to="/register">
-            <v-btn
-            :loading="loading"
-            color="warning"
-            size="large"
-            variant="elevated"
-            block
-          >
-            Зарегистрироваться
-          </v-btn>
-        </router-link>
       </v-form>
     </v-card>
   </v-sheet>
@@ -58,7 +58,7 @@
 import {mapActions} from "vuex";
 
 export default {
-  name: "loginPage",
+  name: "registerPage",
   data() {
     return {
       username: null,
@@ -68,9 +68,9 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['login/login']),
+    ...mapActions(['login/register']),
     loginUser () {
-      this['login/login']({username: this.username, password: this.password, router: this.$router})
+      this['login/register']({username: this.username, password: this.password, router: this.$router})
     },
     onSubmit () {
         if (!this.form) return

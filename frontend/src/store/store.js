@@ -32,6 +32,19 @@ export const store = {
             } catch (error) {
                 alert("Пароль или логин неверны!")
             }
+        },
+        async register({commit}, {username, password, router}) {
+            try {
+                const response = await axios.post("http://localhost:8000/account/register/", {
+                  username: username,
+                  password: password,
+                })
+                const token = response.data.token
+                await commit("setToken", token)
+                router.push("/login")
+            } catch (error) {
+                alert("Пользователь с таким логином уже существует!")
+            }
         }
     },
 }
