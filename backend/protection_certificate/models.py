@@ -1,6 +1,7 @@
 from django.db import models
 
 from protection_certificate.data import ProtectionToolCertificateData
+from protection_function.models import ProtectionToolFunction
 from utils.models import AuthoringModel
 
 from . import const
@@ -69,6 +70,19 @@ class ProtectionToolCertificate(AuthoringModel):
 
     def __str__(self):
         return self.number
+
+    def fill_functions(self):
+        self.functions.clear()
+        cnt = 0
+        for function in ProtectionToolFunction.objects.all():  # type: ProtectionToolFunction
+            if function.symbol in self.documents:
+                self.functions.add(function)
+                cnt += 1
+
+    @classmethod
+    def fill_functions_all(cls):
+        for cert in cls.objects.all():
+            cert.fill_functions()
 
 
 class ProtectionToolCertificateDiff(AuthoringModel):
