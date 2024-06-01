@@ -3,6 +3,7 @@
     <div class="d-flex align-center gap-0">
       <span>Дата начала</span>
       <v-text-field
+          v-model="startDate"
           outlined
           dense
           hide-details
@@ -12,17 +13,43 @@
      <div class="d-flex align-center gap-0">
       <span>Дата конца</span>
       <v-text-field
+          v-model="endDate"
           outlined
           dense
           hide-details
       />
     </div>
+    <v-btn
+        color="blue darken-1"
+        text
+        @click="find"
+      >
+        Найти
+      </v-btn>
   </div>
 </template>
 
 <script>
 export default {
-  name: "DateFilter"
+  name: "DateFilter",
+  inject: ['$table'],
+  data() {
+    return {
+      startDate: null,
+      endDate: null,
+    }
+  },
+  methods: {
+    find() {
+      if (this.startDate !== null && this.endDate !== null) {
+        this.$table.startDate = this.startDate
+        this.$table.endDate = this.endDate
+      } else {
+        this.startDate = null
+        this.endDate = null
+      }
+    }
+  }
 }
 </script>
 

@@ -26,27 +26,27 @@ export default {
   components: {NavPanel},
   data() {
     return {
-      apiPath: 'account/account/',
+      apiPath: 'api-token-auth/',
       data: [],
       headers: [],
       postData: false,
     }
   },
   mounted() {
-    const fetchData = async () => {
+      const fetchData = async () => {
       try {
         const token = localStorage.getItem('token');
         const headers = {
-          Authorization: `${token}`
+          Authorization: `Token ${token}` // Include CSRF token in the headers
         };
-        const { data } = await this.$ajax.get(this.apiPath, { headers });
+        console.log(headers);
+        const { data } = await this.$ajax.post(this.apiPath, { headers });
         this.data = data;
         console.log(this.data);
       } catch (error) {
         console.error('Error fetching data:', error);
       }
     };
-
     fetchData();
   },
   methods: {

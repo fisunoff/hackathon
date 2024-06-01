@@ -58,9 +58,6 @@ export default {
       { text: 'Информация об окончании срока технической поддержки, полученная от заявителя (новое)', value: 'support_period_new' },
     ]
   },
-  methods: {
-
-  }
 }
 </script>
 

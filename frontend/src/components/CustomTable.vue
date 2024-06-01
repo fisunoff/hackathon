@@ -21,7 +21,7 @@
       dense
       :search="search"
       :headers="headers"
-      :items="items"
+      :items="filterItems"
       :footer-props="{
         'items-per-page-options': [10, 25, 50, 100, -1]
       }"
@@ -65,6 +65,7 @@
 
 import CustomModal from "@/components/CustomModal.vue";
 import DeleteConfirmation from "@/components/DeleteConfirmation.vue";
+import {parse} from "date-fns";
 
 export default {
   name: "CustomTable",
@@ -115,7 +116,26 @@ export default {
       modalTitle: null,
       search: '',
       formValue: null,
-      DeleteConfirmation: DeleteConfirmation
+      DeleteConfirmation: DeleteConfirmation,
+      startDate: '1970-01-01',
+      endDate: '2077-01-01',
+    }
+  },
+  computed: {
+    filterItems() {
+      const customFormat = 'yyyy-MM-dd';
+      let start = this.startDate
+      let end = this.endDate
+      if ((start == null && end == null) || start == '' && end == '') {
+        start = '1970-01-01'
+        end = '2077-01-01'
+      }
+      console.log(start)
+      start = parse(start, customFormat, new Date());
+      end = parse(end, customFormat, new Date());
+      return this.items.filter(r => parse(r.date_added_new, customFormat, new Date()) >= start &&
+            parse(r.date_added_new, customFormat, new Date()) <= end);
+
     }
   },
   methods: {

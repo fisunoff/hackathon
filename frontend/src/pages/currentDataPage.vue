@@ -1,6 +1,13 @@
 <template>
   <div class="d-flex">
     <nav-panel />
+    <v-data-table
+      v-if="data.length === 0"
+      class="elevation-1"
+      loading
+      loading-text="Загрузка..."
+      style="width: 100%"
+    ></v-data-table>
     <custom-table
         :key="data.length"
         v-if="data.length > 0"
