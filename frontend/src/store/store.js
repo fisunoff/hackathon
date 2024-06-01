@@ -20,11 +20,12 @@ export const store = {
         }
     },
     actions: {
-        async login({commit}, {username, password, router}) {
+        async login({commit}, {username, password, email, router}) {
             try {
                 const response = await axios.post("http://localhost:8000/api-token-auth/", {
                   username: username,
                   password: password,
+                  email: email,
                 })
                 const token = response.data.token
                 await commit("setToken", token)
@@ -33,11 +34,12 @@ export const store = {
                 alert("Пароль или логин неверны!")
             }
         },
-        async register({commit}, {username, password, router}) {
+        async register({commit}, {username, password, email, router}) {
             try {
                 const response = await axios.post("http://localhost:8000/account/register/", {
                   username: username,
                   password: password,
+                  email: email
                 })
                 const token = response.data.token
                 await commit("setToken", token)

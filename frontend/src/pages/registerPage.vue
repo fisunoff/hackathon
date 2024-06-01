@@ -27,6 +27,15 @@
         />
 
         <v-text-field
+          v-model="email"
+          :readonly="loading"
+          :rules="[required]"
+          label="Почта"
+          clearable
+          outlined
+        />
+
+        <v-text-field
           v-model="password"
           :readonly="loading"
           :rules="[required]"
@@ -63,6 +72,7 @@ export default {
     return {
       username: null,
       password: null,
+      email: null,
       loading: false,
       form: false,
     }
@@ -70,7 +80,7 @@ export default {
   methods: {
     ...mapActions(['login/register']),
     loginUser () {
-      this['login/register']({username: this.username, password: this.password, router: this.$router})
+      this['login/register']({username: this.username, email: this.email, password: this.password, router: this.$router})
     },
     onSubmit () {
         if (!this.form) return
