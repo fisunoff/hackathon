@@ -50,7 +50,7 @@ export default {
       data: [],
       headers: [],
       state: 0,
-      stateName: 'Создано',
+      stateName: this.showStatus(),
       stateTime: null,
     }
   },
