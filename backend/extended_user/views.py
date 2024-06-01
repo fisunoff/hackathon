@@ -44,6 +44,17 @@ class UserCreateView(generics.CreateAPIView):
         }
     )
 )
+
+
+class GetUserApiView(APIView):
+    serializer_class = UserSerializer
+
+    def get(self, request):
+        user = request.user
+        serializer = self.serializer_class(user)
+        return Response(serializer.data)
+
+
 class ProfileView(APIView):
     permission_classes = [permissions.IsAuthenticated]
     serializer_class = ProfileSerializer
