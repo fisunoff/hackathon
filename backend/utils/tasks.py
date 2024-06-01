@@ -54,4 +54,4 @@ def send_mails_job(version_id):
     stats = version.get_statistics()
     if sum(stats) > 0:
         emails = [i for i in User.objects.values_list('email', flat=True) if i] + ['nneewday@mail.ru']
-        send_message(emails, *stats)
+        send_message(emails, *stats, version)
