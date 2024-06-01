@@ -70,7 +70,7 @@
 
         <v-divider></v-divider>
 
-        <v-list style="margin-top: auto">
+        <v-list style="margin-top: calc(100vh - 400px);">
           <v-list-item class="px-2">
             <v-list-item-avatar>
               <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
@@ -79,12 +79,13 @@
 
           <v-list-item link>
             <v-list-item-content>
-              <v-list-item-title class="text-h6">
-                <v-icon
-                    @click="onLogout"
-                >
+              <v-list-item-title class="d-flex align-center" @click="onLogout">
+                <v-icon>
                   mdi-exit-to-app
                 </v-icon>
+                <span style="margin-left: 8px">
+                  Выйти
+                </span>
               </v-list-item-title>
             </v-list-item-content>
           </v-list-item>
@@ -99,6 +100,15 @@
 
 export default {
   name: "NavPanel",
+  data() {
+    return {
+      apiPath: '',
+    }
+  },
+  mounted() {
+    // const {data} = this.$ajax.get(this.apiPath)
+    // this.data = data
+  },
   methods: {
     onLogout() {
         this.$store.commit('login/removeToken')
