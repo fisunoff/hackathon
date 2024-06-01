@@ -66,7 +66,6 @@ router.beforeEach((to, from, next) => {
     if (to.meta.requiresAuth && !token) {
         next("/login")
     } else {
-        console.log(token)
         next()
     }
 })

@@ -181,7 +181,6 @@ export default {
         this.modalTitle = 'Связанная информация'
         this.formValue = item
         this.$refs.modal.dialog = true
-        console.log(item)
       }
     }
   }

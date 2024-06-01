@@ -123,8 +123,14 @@ export default {
       const {data} = await this.$ajax.get('updater/')
       this.state = data
       this.stateName = this.state.state === 0 ? 'Создано' : this.state.state === 1 ? 'Обновляется' : 'Обновлено'
-      this.stateTime = this.state.created
-      console.log(this.stateTime)
+      this.stateTime = this.state.created.toLocaleString('ru-RU', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        });
     }
   }
 }

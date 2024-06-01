@@ -35,7 +35,6 @@ export const store = {
                   password: password,
                   email: email,
                 })
-                console.log(response)
                 const token = response.data.token
                 await commit("setToken", token, username, password)
                 router.push("/user")
