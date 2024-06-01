@@ -127,6 +127,7 @@ class ProtectionToolCertificateDiff(AuthoringModel):
     )
     pause_old = models.BooleanField(verbose_name='Действие сертификата соответствия приостановлено (старое)', default=False)
     pause_new = models.BooleanField(verbose_name='Действие сертификата соответствия приостановлено (новое)', default=False)
+    diff = models.TextField('Отчет по разнице', null=True, blank=True)
     version = models.ForeignKey(to='updater.Version', on_delete=models.PROTECT, verbose_name='версия')
 
     class Meta:
@@ -167,5 +168,6 @@ class ProtectionToolCertificateDiff(AuthoringModel):
                 support_period_infinity_new=now.support_period_infinity,
                 pause_old=old_row.pause,
                 pause_new=now.pause,
+                diff=old_row.get_diff(now),
                 version_id=version_id,
             )

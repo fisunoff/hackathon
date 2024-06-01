@@ -70,6 +70,7 @@ def process_data(data, version_id):
                 defaults=dict(
                     date_added=now.date_added,
                     validity_period=now.validity_period,
+                    validity_period_infinity=now.validity_period_infinity,
                     tool_id=tool_id,
                     documents=now.documents,
                     certification_schema=now.certification_schema,
@@ -78,6 +79,8 @@ def process_data(data, version_id):
                     applicant=now.applicant,
                     requisites=now.requisites,
                     support_period=now.support_period,
+                    support_period_infinity=now.support_period_infinity,
+                    pause=now.pause,
                 )
             )
         else:
@@ -86,6 +89,7 @@ def process_data(data, version_id):
                 number=now.number,
                 date_added=now.date_added,
                 validity_period=now.validity_period,
+                validity_period_infinity=now.validity_period_infinity,
                 tool_id=tool_id,
                 documents=now.documents,
                 certification_schema=now.certification_schema,
@@ -94,6 +98,8 @@ def process_data(data, version_id):
                 applicant=now.applicant,
                 requisites=now.requisites,
                 support_period=now.support_period,
+                support_period_infinity=now.support_period_infinity,
+                pause=now.pause,
             )
     version.status = DONE
     version.save()
