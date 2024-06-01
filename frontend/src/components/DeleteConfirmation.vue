@@ -1,20 +1,23 @@
 <template>
   <div>
     <span>Вы действительно хотите удалить запись?</span>
-    <v-btn
-        color="blue darken-1"
-        text
+    <div class="d-flex" style="margin-top: 16px">
+      <v-btn
+        color="black"
+        style="color: #fff"
         @click="close"
       >
         Отмена
       </v-btn>
       <v-btn
-        color="blue darken-1"
-        text
+        color="error"
+        style="margin-left: 303px;"
         @click="remove"
       >
         Удалить
       </v-btn>
+    </div>
+
   </div>
 </template>
 <script>

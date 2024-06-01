@@ -19,6 +19,19 @@
         style="width: 100%"
     >
       <date-filter />
+      <div class="d-flex flex-column" style="margin-left: auto; margin-right: 12px; max-width: 120px">
+        <span style="font-size: 12px; color: #8c8c8c">{{ getStatus }}</span>
+        <span style="font-size: 12px; color: #8c8c8c"> {{ getTime }} </span>
+      </div>
+      <v-btn
+          color="black"
+          size="large"
+          variant="elevated"
+          style="height: 40px; color: white; margin-right: 54px"
+          @click="update"
+      >
+        Обновить
+      </v-btn>
     </custom-table>
   </div>
 </template>
@@ -36,6 +49,9 @@ export default {
       apiPath: 'protection_certificate/diff/',
       data: [],
       headers: [],
+      state: 0,
+      stateName: 'Создано',
+      stateTime: null,
     }
   },
   async mounted() {
@@ -64,8 +80,31 @@ export default {
       { text: 'Реквизиты заявителя (индекс, адрес, телефон) (новое)', value: 'requisites_new' },
       { text: 'Информация об окончании срока технической поддержки, полученная от заявителя (старое)', value: 'support_period_old' },
       { text: 'Информация об окончании срока технической поддержки, полученная от заявителя (новое)', value: 'support_period_new' },
+      { text: 'Создано', value: 'created' },
     ]
   },
+  computed: {
+    getStatus() {
+      return this.stateName
+    },
+    getTime() {
+      return this.stateTime
+    }
+  },
+  methods: {
+    update() {
+      this.loading = true
+      this.$ajax.post('updater/')
+      this.showStatus()
+    },
+    async showStatus() {
+      const {data} = await this.$ajax.get('updater/')
+      this.state = data
+      this.stateName = this.state.state === 0 ? 'Создано' : this.state.state === 1 ? 'Обновляется' : 'Обновлено'
+      this.stateTime = this.state.created
+      console.log(this.stateTime)
+    }
+  }
 }
 </script>
 

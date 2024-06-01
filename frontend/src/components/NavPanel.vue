@@ -68,15 +68,9 @@
           </router-link>
         </v-list>
 
-        <v-divider></v-divider>
 
         <v-list style="margin-top: calc(100vh - 400px);">
-          <v-list-item class="px-2">
-            <v-list-item-avatar>
-              <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
-            </v-list-item-avatar>
-          </v-list-item>
-
+           <v-divider></v-divider>
           <v-list-item link>
             <v-list-item-content>
               <v-list-item-title class="d-flex align-center" @click="onLogout">

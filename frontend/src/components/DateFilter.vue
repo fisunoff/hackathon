@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex gap-1">
+  <div class="d-flex gap-1" style="align-items: center">
     <div class="d-flex align-center gap-0">
       <span>Дата начала</span>
       <v-text-field
@@ -20,9 +20,9 @@
       />
     </div>
     <v-btn
-        color="blue darken-1"
-        text
+        color="rgba(254, 206, 9, 1)"
         @click="find"
+        style="height: 40px"
       >
         Найти
       </v-btn>

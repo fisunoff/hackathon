@@ -38,7 +38,7 @@ export const store = {
                 console.log(response)
                 const token = response.data.token
                 await commit("setToken", token, username, password)
-                router.push("/")
+                router.push("/current-data")
             } catch (error) {
                 alert("Пароль или логин неверны!")
             }

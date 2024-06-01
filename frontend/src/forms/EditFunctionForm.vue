@@ -4,28 +4,37 @@
       :value="value.title"
       v-model="newValue.title"
       label="Наименование"
+      outlined
+      dense
       hide-details="auto"
+      class="form-field"
     ></v-text-field>
     <v-text-field
       :value="value.symbol"
       v-model="newValue.symbol"
       label="Условное обозначение"
+      outlined
+      dense
       hide-details="auto"
+      class="form-field"
     ></v-text-field>
-    <v-btn
-        color="blue darken-1"
-        text
+    <div class="d-flex">
+      <v-btn
+        color="black"
+        style="color: #fff"
         @click="close"
       >
         Закрыть
       </v-btn>
       <v-btn
-        color="blue darken-1"
-        text
+        color="rgba(254, 206, 9, 1)"
+        style="margin-left: 303px;"
         @click="edit"
       >
         Изменить
       </v-btn>
+    </div>
+
   </div>
 </template>
 
@@ -73,5 +82,8 @@ export default {
 </script>
 
 <style scoped>
+.form-field {
+  margin: 8px 0;
+}
 
 </style>

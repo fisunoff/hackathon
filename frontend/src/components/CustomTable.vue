@@ -1,7 +1,7 @@
 <template>
   <div class="pa-4">
     <div class="d-flex justify-content-center align-center">
-      <span>{{ tableTitle }}</span>
+      <span style="font-size: 24px">{{ tableTitle }}</span>
       <v-card-title style="width: 30%">
       <v-text-field
         v-model="search"
@@ -15,7 +15,7 @@
       <template>
         <slot/>
       </template>
-      <v-btn v-if="addAction" color="primary" class="ml-auto" @click="addItem">Добавить</v-btn>
+      <v-btn v-if="addAction" color="rgba(254, 206, 9, 1)" class="ml-auto" @click="addItem">Добавить</v-btn>
     </div>
     <v-data-table
       dense
@@ -65,7 +65,7 @@
 
 import CustomModal from "@/components/CustomModal.vue";
 import DeleteConfirmation from "@/components/DeleteConfirmation.vue";
-import {parse} from "date-fns";
+//import {parse} from "date-fns";
 
 export default {
   name: "CustomTable",
@@ -127,18 +127,19 @@ export default {
   },
   computed: {
     filterItems() {
-        if (this.haveFilter) {
-          const customFormat = 'yyyy-MM-dd';
-        let start = this.startDate
-        let end = this.endDate
-        if ((start == null && end == null) || start == '' && end == '') {
-          start = '1970-01-01'
-          end = '2077-01-01'
-        }
-        start = parse(start, customFormat, new Date());
-        end = parse(end, customFormat, new Date());
-        return this.items.filter(r => parse(r.date_added_new, customFormat, new Date()) >= start &&
-              parse(r.date_added_new, customFormat, new Date()) <= end);
+      if (this.haveFilter) {
+        return this.items
+        // const customFormat = 'yyyy-MM-dd';
+        // let start = this.startDate
+        // let end = this.endDate
+        // if ((start == null && end == null) || start == '' && end == '') {
+        //   start = '1970-01-01'
+        //   end = '2077-01-01'
+        // }
+        // start = parse(start, customFormat, new Date());
+        // end = parse(end, customFormat, new Date());
+        // return this.items.filter(r => parse(r.created, customFormat, new Date()) >= start &&
+        //       parse(r.created, customFormat, new Date()) <= end);
       } else {
           return this.items
       }
