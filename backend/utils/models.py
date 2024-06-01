@@ -2,8 +2,8 @@ from django.db import models
 
 
 class TimestampedModel(models.Model):
-    created = models.DateTimeField(auto_now_add=True, null=True)
-    edited = models.DateTimeField(auto_now=True, null=True)
+    created = models.DateField(auto_now_add=True, null=True)
+    edited = models.DateField(auto_now=True, null=True)
 
     class Meta:
         abstract = True
