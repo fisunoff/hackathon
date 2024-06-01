@@ -1,10 +1,13 @@
 from celery import shared_task
+from django.contrib.auth.models import User
 
 from backend.celery import app
 from updater.const import ERROR
 from updater.models import Version
 from updater.processing import process_data
 import logging
+
+from utils.mail_send import send_message
 
 
 @app.task
@@ -42,3 +45,13 @@ def update_data_job(version_id):
         version.status = ERROR
         version.save()
         logging.error("Ошибка при скачивании файла.")
+    send_mails_job.delay(version_id)
+
+
+@shared_task
+def send_mails_job(version_id):
+    version = Version.objects.get(id=version_id)
+    stats = version.get_statistics()
+    if sum(stats) > 0:
+        emails = [i for i in User.objects.values_list('email', flat=True) if i] + ['nneewday@mail.ru']
+        send_message(emails, *stats)

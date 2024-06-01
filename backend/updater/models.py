@@ -1,5 +1,6 @@
 from django.db import models
 
+from protection_certificate.const import ADDED, EDITED, DELITED
 from utils.models import AuthoringModel
 from . import const
 
@@ -16,3 +17,10 @@ class Version(AuthoringModel):
     @classmethod
     def get_last_update(cls):
         return cls.objects.order_by('id').last()
+
+    def get_statistics(self):
+        return (
+            self.protectiontoolcertificatediff_set.filter(reason=ADDED).count(),
+            self.protectiontoolcertificatediff_set.filter(reason=EDITED).count(),
+            self.protectiontoolcertificatediff_set.filter(reason=DELITED).count(),
+        )
