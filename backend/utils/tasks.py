@@ -2,6 +2,7 @@ from celery import shared_task
 from django.contrib.auth.models import User
 
 from backend.celery import app
+from protection_certificate.models import ProtectionToolCertificate
 from updater.const import ERROR
 from updater.models import Version
 from updater.processing import process_data
@@ -45,6 +46,7 @@ def update_data_job(version_id):
         version.status = ERROR
         version.save()
         logging.error("Ошибка при скачивании файла.")
+    ProtectionToolCertificate.fill_functions_all()
     send_mails_job.delay(version_id)
 
 
