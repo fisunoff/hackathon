@@ -22,7 +22,8 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
     # is_manager = serializers.BooleanField(read_only=True)
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Profile
-        fields = ('name', 'surname', 'patronymic', 'bio', 'post', 'manager', 'notify_me')
+        fields = ('id', 'user', 'name', 'surname', 'patronymic', 'bio', 'post', 'manager', 'notify_me')

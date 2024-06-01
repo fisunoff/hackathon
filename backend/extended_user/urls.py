@@ -7,6 +7,5 @@ urlpatterns = []
 
 urlpatterns += [
     path('register/', views.UserCreateView.as_view()),
-    path('account/', views.ProfileView.as_view()),
-    path('current/', views.GetUserApiView.as_view())
+    path('account/', views.ProfileView.as_view())
 ]
