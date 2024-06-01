@@ -68,7 +68,7 @@ class ProtectionToolCertificateData:
                      f'{render_date(self.support_period, self.support_period_infinity)} '
                      f'→ {render_date(other.support_period, other.support_period_infinity)}\n')
         if self.pause and not other.pause:
-            diff += 'Действие сертификата приостановлено\n'
-        if not self.pause and other.pause:
             diff += 'Действие сертификата больше не приостановлено\n'
+        if not self.pause and other.pause:
+            diff += 'Действие сертификата приостановлено\n'
         return diff.strip('\n')
