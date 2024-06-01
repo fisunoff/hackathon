@@ -107,6 +107,10 @@ export default {
     EditForm: {
       type: Object,
       default: null,
+    },
+    haveFilter: {
+      type: Boolean,
+      default: false,
     }
   },
   data() {
@@ -123,19 +127,21 @@ export default {
   },
   computed: {
     filterItems() {
-      const customFormat = 'yyyy-MM-dd';
-      let start = this.startDate
-      let end = this.endDate
-      if ((start == null && end == null) || start == '' && end == '') {
-        start = '1970-01-01'
-        end = '2077-01-01'
+        if (this.haveFilter) {
+          const customFormat = 'yyyy-MM-dd';
+        let start = this.startDate
+        let end = this.endDate
+        if ((start == null && end == null) || start == '' && end == '') {
+          start = '1970-01-01'
+          end = '2077-01-01'
+        }
+        start = parse(start, customFormat, new Date());
+        end = parse(end, customFormat, new Date());
+        return this.items.filter(r => parse(r.date_added_new, customFormat, new Date()) >= start &&
+              parse(r.date_added_new, customFormat, new Date()) <= end);
+      } else {
+          return this.items
       }
-      console.log(start)
-      start = parse(start, customFormat, new Date());
-      end = parse(end, customFormat, new Date());
-      return this.items.filter(r => parse(r.date_added_new, customFormat, new Date()) >= start &&
-            parse(r.date_added_new, customFormat, new Date()) <= end);
-
     }
   },
   methods: {
