@@ -62,7 +62,7 @@ export default {
     },
     splitData(data) {
       data.forEach(el => {
-        el.functions = el.functions.map(el2 => el2.symbol).join(', ');
+        el.functions = el.functions.map(el2 => el2.title).join(', ');
       });
       data.forEach(el => {
         el.functions = this.replaceSpace(el.functions)
