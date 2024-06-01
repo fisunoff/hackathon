@@ -9,9 +9,14 @@ MY_ADDRESS = 'testivan2003@mail.ru'
 PASSWORD = 'qWWKS9hGFFjqxtvuPVhT'
 
 
-def send_message(email_list, created, edited, deleted):
+def send_message(email_list, created, edited, deleted, version):
     s = smtplib.SMTP_SSL(host='smtp.mail.ru', port=465)
     s.login(MY_ADDRESS, PASSWORD)
+    diffs = version.protectiontoolcertificatediff_set.all()
+    diff_str = ''
+    for diff in diffs:
+        diff_str += f'<p>Сертификат №{diff.number} - {diff.get_reason_display()}</p><p>{diff.diff}</p>'
+
     for email in email_list:
         msg = MIMEMultipart()
         msg['From'] = MY_ADDRESS
@@ -38,6 +43,7 @@ def send_message(email_list, created, edited, deleted):
                     <td>{deleted}</td>
                 </tr>
             </table>
+            {diff_str}
           </body>
         </html>
         """
