@@ -58,6 +58,7 @@ export default {
     const {data} = await this.$ajax.get(this.apiPath)
     this.data = data
     this.headers = [
+      { text: 'Создано', value: 'created' },
       { text: 'Тип изменения', value: 'reason' },
       { text: '№ сертификата', value: 'number' },
       { text: 'Дата внесения в реестр (старое)', value: 'date_added_old' },
@@ -80,7 +81,6 @@ export default {
       { text: 'Реквизиты заявителя (индекс, адрес, телефон) (новое)', value: 'requisites_new' },
       { text: 'Информация об окончании срока технической поддержки, полученная от заявителя (старое)', value: 'support_period_old' },
       { text: 'Информация об окончании срока технической поддержки, полученная от заявителя (новое)', value: 'support_period_new' },
-      { text: 'Создано', value: 'created' },
     ]
   },
   computed: {
