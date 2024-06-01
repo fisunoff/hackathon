@@ -40,6 +40,7 @@ class ProtectionToolCertificateDiffSerializer(serializers.ModelSerializer):
             'requisites_old',  # Реквизиты заявителя (индекс, адрес, телефон)
             'requisites_new',  # Реквизиты заявителя (индекс, адрес, телефон)
             'support_period_old',  # Информация об окончании срока технической поддержки, полученная от заявителя
-            'support_period_new'  # Информация об окончании срока технической поддержки, полученная от заявителя
+            'support_period_new',  # Информация об окончании срока технической поддержки, полученная от заявителя
+            'created'
         ]
 
