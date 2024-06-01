@@ -8,7 +8,9 @@ from . import const
 
 
 # Create your models here.
-class ProtectionToolCertificate(AuthoringModel):
+class ProtectionToolCertificate(models.Model):
+    created = models.DateField(auto_now_add=True, null=True)
+    edited = models.DateField(auto_now=True, null=True)
     number = models.CharField(max_length=1024, unique=True, verbose_name='№ сертификата')
     date_added = models.DateField(verbose_name='Дата внесения в реестр')
     validity_period = models.DateField(verbose_name='Срок действия сертификата', null=True)
