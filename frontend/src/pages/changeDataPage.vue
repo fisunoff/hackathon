@@ -57,8 +57,30 @@ export default {
   async mounted() {
     const {data} = await this.$ajax.get(this.apiPath)
     this.data = data
+    data.forEach(function(item) {
+      const dateObject = new Date(item.created);
+      item.formatted_created = dateObject.toLocaleString('ru-RU', {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        });
+      switch (item.reason){
+        case 0:
+          item.reason = 'Создание';
+          break;
+        case 1:
+          item.reason = 'Изменение';
+          break;
+        case 2:
+          item.reason = 'Удаление';
+          break;
+      }
+    });
     this.headers = [
-      { text: 'Создано', value: 'created' },
+      { text: 'Создано', value: 'formatted_created' },
       { text: 'Тип изменения', value: 'reason' },
       { text: '№ сертификата', value: 'number' },
       { text: 'Дата внесения в реестр (старое)', value: 'date_added_old' },
