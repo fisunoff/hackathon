@@ -108,10 +108,22 @@ export default {
       type: Object,
       default: null,
     },
+    ShowForm: {
+      type: Object,
+      default: null,
+    },
     haveFilter: {
       type: Boolean,
       default: false,
-    }
+    },
+    showMoreInfo: {
+      type: Boolean,
+      default: false,
+    },
+    InfoForm: {
+      type: Object,
+      default: null,
+    },
   },
   data() {
     return {
@@ -163,6 +175,15 @@ export default {
       this.formValue = item
       this.$refs.modal.dialog = true
     },
+    showInfo(item) {
+      if (this.showMoreInfo) {
+        this.useForm = this.InfoForm
+        this.modalTitle = 'Связанная информация'
+        this.formValue = item
+        this.$refs.modal.dialog = true
+        console.log(item)
+      }
+    }
   }
 }
 </script>

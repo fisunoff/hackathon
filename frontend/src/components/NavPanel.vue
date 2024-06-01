@@ -22,14 +22,14 @@
           nav
           dense
         >
-<!--          <router-link to="/user" class="nav-el">-->
-<!--            <v-list-item link>-->
-<!--                <v-list-item-icon>-->
-<!--                  <v-icon>mdi-account</v-icon>-->
-<!--                </v-list-item-icon>-->
-<!--                <v-list-item-title>Профиль</v-list-item-title>-->
-<!--            </v-list-item>-->
-<!--          </router-link>-->
+          <router-link to="/user" class="nav-el">
+            <v-list-item link>
+                <v-list-item-icon>
+                  <v-icon>mdi-account</v-icon>
+                </v-list-item-icon>
+                <v-list-item-title>Профиль</v-list-item-title>
+            </v-list-item>
+          </router-link>
 
           <router-link to="/current-data" class="nav-el">
             <v-list-item link>
