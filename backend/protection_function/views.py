@@ -7,4 +7,8 @@ from .models import *
 # Create your views here.
 class ProtectionToolFunctionViewSet(viewsets.ModelViewSet):
     queryset = ProtectionToolFunction.objects.all()
-    serializer_class = ProtectionToolFunctionSerializer
+
+    def get_serializer_class(self):
+        if self.action == 'list':
+            return BasicProtectionToolFunctionSerializer
+        return ProtectionToolFunctionSerializer
